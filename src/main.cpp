@@ -21,6 +21,7 @@ int main() {
     // test var
     bool isRunning = true;
 
+    // TODO: remove - test log
     while(isRunning) {
         render_controller.Render();
         if (std::cin.ignore()) {
