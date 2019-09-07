@@ -25,7 +25,7 @@ Render_Controller::Render_Controller(
         SDL_WINDOWPOS_CENTERED, 
         screen_width,
         screen_height, 
-        SDL_WINDOW_SHOWN);
+        SDL_WINDOW_SHOWN | SDL_WINDOW_MAXIMIZED);
 
     if (nullptr == sdl_window) {
         std::cerr << "Window could not be created.\n";
@@ -33,6 +33,7 @@ Render_Controller::Render_Controller(
     }
 
     // Create renderer
+    // sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED | SDL_WINDOW_MAXIMIZED);
     sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED);
     if (nullptr == sdl_renderer) {
         std::cerr << "Renderer could not be created.\n";
@@ -40,7 +41,7 @@ Render_Controller::Render_Controller(
     }
 }
 
-void Render_Controller::Render() {
+void Render_Controller::Render(Player_Cannon cannon) {
     // Intiate block, extrapolate dimensions
     SDL_Rect block;
     block.w = screen_width / grid_width;
@@ -50,12 +51,29 @@ void Render_Controller::Render() {
     SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
     SDL_RenderClear(sdl_renderer);
 
+    // Render player controlled cannon
+    SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF);
+    block.x = cannon.x * block.w;
+    block.y = cannon.y * block.h;
+    SDL_RenderFillRect(sdl_renderer, &block);
+
     // this is not used now but putting in for testing
     // Update Screen
     SDL_RenderPresent(sdl_renderer);
 
     // TODO: test log << remove when done
     std::cout << "Running Render";
+
+    // Test loop
+    SDL_Event e;
+    while(SDL_PollEvent(&e)) {
+        if(e.type == SDL_KEYDOWN) {
+            if (e.key.keysym.sym == SDLK_UP) {
+                break;
+            }
+        }
+    }
+
 }
 
 Render_Controller::~Render_Controller() {

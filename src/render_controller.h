@@ -2,6 +2,7 @@
 #define RENDER_CONTROLLER_H
 
 #include "SDL.h"
+#include "player_cannon.h"
 
 class Render_Controller {
     public:
@@ -17,7 +18,7 @@ class Render_Controller {
         ~Render_Controller();
 
         // Methods
-        void Render();
+        void Render(Player_Cannon cannon);
         // UpdateWindowTitle();
 
     private:

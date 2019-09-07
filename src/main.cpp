@@ -1,5 +1,6 @@
 #include <iostream>
-#include <render_controller.h>
+#include "render_controller.h"
+#include "player_cannon.h"
 
 int main() {
 
@@ -18,18 +19,23 @@ int main() {
     // Initialize Render Controller
     Render_Controller render_controller(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
 
+    // Initialize Player Cannon test
+    Player_Cannon cannon(10, 10);
+
     // test var
-    bool isRunning = true;
+    // bool isRunning = true;
 
     // TODO: remove - test log
-    while(isRunning) {
-        render_controller.Render();
-        if (std::cin.ignore()) {
-            isRunning = false;
-        }
-    }
+    // while(isRunning) {
+    //     render_controller.Render(cannon);
+    //     if (std::cin.ignore()) {
+    //         isRunning = false;
+    //     }
+    // }
 
-    render_controller.~Render_Controller();
+    // render_controller.Render(cannon);
+
+    // render_controller.~Render_Controller();
 
     return 0;
 }
